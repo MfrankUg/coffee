@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Google Model Viewer Example</title>
+  <!-- Include Model Viewer library -->
+  <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"></script>
+
+  <style>
+    model-viewer {width: 800px ; height: 600px; margin:0 ,auto;}
+    </style>
+
+</head>
+
+<body>
+
+<h1>Google Model Viewer with JavaScript</h1>
+
+<model-viewer src="coffee.glb" ar ar-modes="webxr scene-viewer quick-look" camera-controls tone-mapping="neutral" poster="poster.webp" shadow-intensity="1">
+    <button class="Hotspot" slot="hotspot-2" data-position="-1.4503043993626816m 4.951215048695538m -4.600472604892219m" data-normal="-0.936006543829488m 0.14235678762750972m -0.32191038337517613m" data-visibility-attribute="visible">
+        <div class="HotspotAnnotation">Lamp
+        </div>
+    </button><button class="Hotspot" slot="hotspot-3" data-position="-0.09046727498398499m -2.9909843217755423m 1.7009576090915794m" data-normal="-0.8326568241868687m 0m -0.5537893219763613m" data-visibility-attribute="visible">
+        <div class="HotspotAnnotation">Cup
+        </div>
+    </button><button class="Hotspot" slot="hotspot-4" data-position="-0.3303828824384021m -3.6871982948167292m -1.449804186820984m" data-normal="0m 0m -1m" data-visibility-attribute="visible">
+        <div class="HotspotAnnotation">toy</div>
+    </button>
+    <div class="progress-bar hide" slot="progress-bar">
+        <div class="update-bar"></div>
+    </div>
+    <button slot="ar-button" id="ar-button">
+        View in your space
+    </button>
+ 
+</model-viewer>
+
+</body>
+</html>
