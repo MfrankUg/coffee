@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <title>Dynamic Hotspots on 3D Model</title>
+</head>
+<body>
+
+<h1>Interactive 3D Model with Dynamic Hotspots</h1>
+
+<!-- Button to toggle exploded view -->
+<button onclick="toggleExplodedView()">Toggle Exploded View</button>
+
+<!-- Model Viewer -->
+<model-viewer id="myModel" src="ARDUINO.glb" alt="3D model of a product"
+    camera-controls style="width: 100%; height: 500px;">
+</model-viewer>
+
+<script>
+    // Variable to track the current view (normal or exploded)
+    let exploded = false;
+
+    // Function to toggle between normal view and exploded view
+    function toggleExplodedView() {
+        // Get the model viewer element
+        const modelViewer = document.querySelector("#myModel");
+
+        // Clear existing hotspots
+        clearHotspots(modelViewer);
+
+        // Check if the current view is exploded
+        if (!exploded) {
+            // Set the model source to the exploded version
+            modelViewer.setAttribute('src', 'ARDUINO.glb');
+            // Add hotspots for exploded view
+            addHotspots(modelViewer, explodedHotspots);
+        } else {
+            // Set the model source back to the normal version
+            modelViewer.setAttribute('src', 'ARDUINOExploded.glb');
+            // Add hotspots for normal view
+            addHotspots(modelViewer, normalHotspots);
+        }
+
+        // Toggle the exploded state
+        exploded = !exploded;
+    }
+
+    // Function to add hotspots
+    function addHotspots(modelViewer, hotspots) {
+        hotspots.forEach((hotspot, index) => {
+            const button = document.createElement('button');
+            button.setAttribute('slot', `hotspot-${index + 1}`);
+            button.setAttribute('data-position', hotspot.position);
+            button.setAttribute('data-normal', hotspot.normal);
+            button.textContent = hotspot.label;
+            modelViewer.appendChild(button);
+        });
+    }
+
+    // Function to clear all existing hotspots
+    function clearHotspots(modelViewer) {
+        const hotspotButtons = modelViewer.querySelectorAll('button[slot^="hotspot-"]');
+        hotspotButtons.forEach(button => button.remove());
+    }
+
+    // Define hotspots for normal view
+    const normalHotspots = [
+        { position: "-7.252888781344808m -7.252888781344808m -6.922592352965755m", normal: "-0.8301125381151335m 0.5575958877754066m 8.684309688342144e-8m", label: "power supply" },
+    ];
+
+    // Define hotspots for exploded view
+    const explodedHotspots = [
+        { position: "-7.224146150501244m 5.585046868685139m -7.10783466665919m", normal: "-0.8301125381151335m 0.5575958877754066m 8.684309688342144e-8m", label: "power supply" },
+    ];
+
+    // Add initial hotspots for normal view
+    document.addEventListener("DOMContentLoaded", () => {
+        const modelViewer = document.querySelector("#myModel");
+        addHotspots(modelViewer, normalHotspots);
+    });
+</script>
+
+</body>
+</html>
